@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="22" columns="0">
+<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="25" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="16" height="16" source="../../Textures/Mapa/Grass.png"/>
@@ -29,7 +29,7 @@
   <image width="16" height="16" source="../../../../../Downloads/Wood_Barrier.png"/>
  </tile>
  <tile id="9">
-  <image width="16" height="16" source="../../../../../Downloads/Wood_Barrier_Top.png"/>
+  <image source="../../../../../Downloads/Wood_Barrier_Top.png"/>
  </tile>
  <tile id="10">
   <image width="16" height="16" source="../../../../../Downloads/Barrier_Corner.png"/>
@@ -66,5 +66,14 @@
  </tile>
  <tile id="21">
   <image width="16" height="16" source="../../../../../Downloads/Barrier_Corner_BG_Right.png"/>
+ </tile>
+ <tile id="22">
+  <image width="16" height="16" source="../../../../../Downloads/Barrier_Corner_BG_Left.png"/>
+ </tile>
+ <tile id="23">
+  <image width="16" height="16" source="../../../../../Downloads/Barrier_Top.png"/>
+ </tile>
+ <tile id="24">
+  <image width="16" height="16" source="../../../../../Downloads/Barrier_Top_NoBG.png"/>
  </tile>
 </tileset>
