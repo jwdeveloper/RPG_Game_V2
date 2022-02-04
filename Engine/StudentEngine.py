@@ -4,6 +4,8 @@ import traceback
 import time
 from Engine.GameGroup import GameGroup
 import pygame_gui
+from audioplayer import AudioPlayer
+import os
 
 
 class Engine:
@@ -24,18 +26,19 @@ class Engine:
         self.zoom_factor = 1000
         self.display = pygame.Surface(self.WINDOW_SIZE)
         self.ORIG_SURFACE = pygame.Surface(self.WINDOW_SIZE)
+        self.CURSOR = None
 
     def stop(self):
         self.log("Game stop")
         self.IS_RUNNING = 0
 
     def run(self):
+        pygame.init()
         self.log("Game run")
         self.IS_RUNNING = True
-        pygame.mixer.pre_init(44100, 16, 2, 4096)
-        pygame.init()
         self.GUI_MANAGER = pygame_gui.UIManager((800, 600))
         clock = pygame.time.Clock()
+        pygame.mouse.set_visible(False)
         self.screen = pygame.display.set_mode(self.WINDOW_SIZE, pygame.DOUBLEBUF | pygame.RESIZABLE)
 
         while self.IS_RUNNING:
@@ -52,8 +55,8 @@ class Engine:
 
                 for groupName in self.groups:
                     group = self.groups[groupName]
-                    self.checkGameobjectsToDestroy(group)
-                    self.doTick(group)
+                    group.doTick(self)
+
                 self.GUI_MANAGER.update(self.deltaTime)
                 self.doGraphic(self.screen)
 
@@ -81,15 +84,6 @@ class Engine:
 
         self.toCreateGamesObjects.clear()
 
-    # Destroy all gameobjects variable shouldDestroy == True
-    def checkGameobjectsToDestroy(self, group):
-        toDestroy = list(filter(lambda o: o.shouldDestroy is True, group))
-        (lambda o: group.remove(o), toDestroy)
-
-    def doTick(self, gameObjects):
-        for gameObject in gameObjects:
-            gameObject.onTick(self)
-
     # Draw all stuff on the screen
     def doGraphic(self, screen):
         screen.fill(255)
@@ -101,16 +95,41 @@ class Engine:
         screen.blit(pygame.transform.scale(self.display, screen.get_size()), (0, 0))
 
         self.GUI_MANAGER.draw_ui(screen)
+
+        if self.CURSOR != None:
+            screen.blit(pygame.transform.scale(self.CURSOR, (33,33)),  (pygame.mouse.get_pos()))
+
         pygame.display.update()
 
     # =====================================================
 
-    def checkCollision(self, target, groupName):
+    def checkCollisions(self, target, groupName):
         if groupName not in self.groups:
             return
 
         group = self.groups[groupName]
         colliders = pygame.sprite.spritecollide(target, group, False)
+        for collider in colliders:
+            target.onCollision(self, collider)
+            collider.onCollision(self, target)
+
+    def checkCollision(self, target, groupName):
+        if groupName not in self.groups:
+            return
+        group = self.groups[groupName]
+        colliders = pygame.sprite.spritecollide(target, group, False)
+        if len(colliders) == 0:
+            return
+        collider = colliders[0]
+        target.onCollision(self, collider)
+        collider.onCollision(self, target)
+
+    def checkPixelPerfectCollision(self, target, groupName):
+        if groupName not in self.groups:
+            return
+
+        group = self.groups[groupName]
+        colliders = pygame.sprite.spritecollide(target, group, False, pygame.sprite.collide_mask)
         for collider in colliders:
             target.onCollision(self, collider)
             collider.onCollision(self, target)
@@ -122,9 +141,6 @@ class Engine:
 
     def addGameObject(self, gameObject):
         self.toCreateGamesObjects.append(gameObject)
-
-    def removeGameObject(self, gameObject):
-        self.gameObjects.remove(gameObject)
 
     def playBackgroundMusic(self, path):
         pygame.mixer.music.load(path)
@@ -150,25 +166,39 @@ class Engine:
         return None
 
     def loadSound(self, path):
-        return pygame.mixer.Sound('Sounds' + os.sep + path)
+        return AudioPlayer('Resources' + os.sep + 'Sounds' + os.sep + path)
+
+    def loadSounds(self, path):
+        basePath = 'Resources' + os.sep + 'Sounds' + os.sep + path
+        files = os.listdir(basePath)
+        result = []
+        for file in files:
+            if file.find(".") == -1:
+                continue
+            sound = AudioPlayer(basePath + os.sep + file)
+            result.append(sound)
+        return result
 
     def loadImage(self, path):
         image = pygame.image.load('Resources' + os.sep + 'Textures' + os.sep + path + '.png')
-
         return image
 
     def loadImages(self, path=''):
         basePath = 'Resources' + os.sep + 'Textures' + os.sep + path
-        files = os.listdir(basePath + path)
+        files = os.listdir(basePath)
         result = []
         for file in files:
+            if os.path.isdir(file):
+                continue
             image = pygame.image.load(basePath + os.sep + file)
-            image = pygame.transform.scale(image, self.scaleFactor)
             result.append(image)
         return result
 
     def setTitle(self, title):
         pygame.display.set_caption(title)
+
+    def setCursorImage(self,path):
+        self.CURSOR = self.loadImage(path)
 
     def getScreenSize(self):
         return self.screen.get_rect()
@@ -176,3 +206,6 @@ class Engine:
     def log(self, message):
         current_time = time.strftime("%H:%M:%S", time.localtime())
         print(f"{current_time} [GAME LOG] >> {message}")
+
+    def clearConsole(self):
+        print('\n' * 20)

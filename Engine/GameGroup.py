@@ -1,9 +1,26 @@
 import pygame.sprite
+import math
+import pygame
 
 
 class GameGroup(pygame.sprite.Group):
     renderIndex = 0
     disableRender = False
+    gameObjects = []
+
+    def doTick(self, engine):
+        toDestroy = []
+
+        self.gameObjects = sorted(self.sprites(), key=lambda sprite: sprite.rect.centery)
+        for sprite in self.gameObjects:
+            if sprite.shouldDestroy:
+                toDestroy.append(sprite)
+                continue
+
+            sprite.onTick(engine)
+
+        for sprite in toDestroy:
+            self.remove(sprite)
 
     def draw(self, surface, camera):
 
@@ -12,9 +29,16 @@ class GameGroup(pygame.sprite.Group):
 
         half_width = surface.get_size()[0] // 2
         half_height = surface.get_size()[1] // 2
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
+        for sprite in self.gameObjects:
             if sprite.image is None:
                 continue
-            x = sprite.location.X() - camera.x+half_width-sprite.location.width()//2
-            y = sprite.location.Y() - camera.y+half_height-sprite.location.height()//2
-            surface.blit(sprite.image, (x,y))
+            distance = self.distance(sprite.location.X(), sprite.location.Y(), camera.x, camera.y)
+            if distance > 300:
+                continue
+
+            x = sprite.location.X() - camera.x + half_width - sprite.location.width() // 2
+            y = sprite.location.Y() - camera.y + half_height - sprite.location.height() // 2
+            surface.blit(sprite.image, (x, y))
+
+    def distance(self, x1, y1, x2, y2):
+        return math.hypot(x1 - x2, y1 - y2)

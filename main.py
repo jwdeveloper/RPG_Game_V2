@@ -3,14 +3,20 @@ from Game.Player import Player
 from Game.Npc import Npc
 from Game.Tile import Tile
 from Game.UI.PlayerUI import PlayerUI
+from Game.Audio.AudioManager import AudioManager
+from Game.Pirates.Pirate import Pirate
+from Game.ExampleLevel import ExampleLevel
+
 engine = Engine()
 engine.setTitle("Super student RPG Game")
-for i in range(0, 50):
-    engine.addGameObject(Tile(i*16, i*16))
+engine.setCursorImage("UI\\cursor")
+level = ExampleLevel()
+level.create(engine)
+
 engine.addGameObject(Player())
-for i in range(0,1):
-    engine.addGameObject(Npc())
+engine.addGameObject(Npc())
+engine.addGameObject(Pirate())
 
-
-engine.addGameObject(PlayerUI())
+# engine.addGameObject(PlayerUI())
+engine.addGameObject(AudioManager())
 engine.run()

@@ -40,6 +40,7 @@ class GameObject(pygame.sprite.Sprite):
         self.surf = image
         self.rect = image.get_rect()
         self.location = Location(self.rect)
+        self.mask = pygame.mask.from_surface(self.image)
 
     def getColliderBox(self):
         if self.enableCollision is False or self.hasTexture() is False:

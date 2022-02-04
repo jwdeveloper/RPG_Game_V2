@@ -10,7 +10,7 @@ class Player(Entity):
 
     def onEnable(self, engine):
         super().onEnable(engine)
-        self.setImage(engine.loadImage("Bard"))
+        self.setImage(engine.loadImage("Postacie\\Klasy\\Bard"))
         self.ui = PlayerUI()
         self.group = "player"
         self.name = "player"
@@ -18,12 +18,15 @@ class Player(Entity):
         self.location.add(50, 30)
 
     def onTick(self, engine):
-        super().onTick(engine)
+
         self.controlEntity(engine.userInput)
         self.zoomControl(engine.userInput, engine)
         self.stickToCamera(engine)
+        super().onTick(engine)
 
     def onCollision(self, engine, gameObject):
+        engine.clearConsole()
+        print(gameObject.name)
         super().onCollision(engine, gameObject)
 
     def stickToCamera(self, engine):
@@ -35,9 +38,10 @@ class Player(Entity):
 
     def zoomControl(self, input, engine):
         if input[pygame.K_t]:
-            self.current_health +=1
+            self.current_health += 1
         if input[pygame.K_q]:
             engine.setZoom(engine.zoom_factor - 10)
+            engine.clearConsole()
         if input[pygame.K_w]:
             engine.setZoom(engine.zoom_factor + 10)
         if input[pygame.K_e]:

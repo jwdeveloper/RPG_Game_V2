@@ -1,5 +1,6 @@
 import pygame
 from cmath import sqrt
+import math
 
 
 class Location:
@@ -8,8 +9,6 @@ class Location:
         self.rect = rect
         self.lastX = 0
         self.lastY = 0
-        self.directionX = 0
-        self.directionY = 0
 
     def X(self):
         return self.rect.topleft[0]
@@ -28,9 +27,28 @@ class Location:
         self.lastY = self.rect.y
         self.rect.x = x
         self.rect.y = y
-        self.directionX = x - self.lastX
-        self.directionY = y - self.lastY
+
         return self
+
+    def direction(self):
+        dx = self.X() - self.lastX
+        dy = self.Y() - self.lastY
+        if dx != 0:
+            dx = (dx / abs(dx))
+        if dy != 0:
+            dy = (dy / abs(dy))
+
+        return (dx, dy)
+
+    def direction(self,location):
+        dx = self.X() - location.X()
+        dy = self.Y() - location.Y()
+        if dx != 0:
+            dx = (dx / abs(dx))
+        if dy != 0:
+            dy = (dy / abs(dy))
+
+        return (dx, dy)
 
     def add(self, x, y):
         self.set(self.rect.x + x, self.rect.y + y)
@@ -40,9 +58,7 @@ class Location:
         self.set(self.rect.x * factor, self.rect.y * factor)
 
     def distance(self, location):
-        p1 = int(self.X() - location.X())
-        p2 = int(self.Y() - location.Y())
-        return sqrt( (p1 * p1) - (p2 * p2)).real
+        return math.hypot(self.X() - location.X(), self.Y() - location.Y())
 
     def clone(self):
         rect = self.rect.copy()
