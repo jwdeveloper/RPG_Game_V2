@@ -6,8 +6,8 @@ import math
 from Game.Npc import Npc
 from Game.Quests.Quest import Quest
 
-class Pirate(Npc):
 
+class Pirate(Npc):
     quest = None
 
     def onEnable(self, engine):
@@ -18,24 +18,26 @@ class Pirate(Npc):
         self.sounds = engine.loadSounds("Pirat")
         self.soundQuest = engine.loadSound("Pirat\\Quest\\Zadanie_0.mp3")
         self.soundQuest2 = engine.loadSound("Pirat\\Quest\\CzyGotowe.mp3")
-        self.location.set(30,30)
+        self.location.set(30, 30)
+        self.camera = engine.findGameObject("camera")
 
     def onTick(self, engine):
         super().onTick(engine)
-        self.questAccept(engine.userInput,engine)
+        self.questAccept(engine.userInput, engine)
 
     def questAccept(self, input, engine):
-
 
         if input[pygame.K_e] and self.state == "talking":
 
             if self.quest != None:
+                self.camera.setTarget(self.player)
+                self.soundQuest2.volume = 5
                 self.soundQuest2.play()
                 return
 
+            self.camera.setTarget(self)
+            self.soundQuest.volume = 5
             self.soundQuest.play()
             self.quest = Quest()
             self.quest.setOwner(self)
             engine.addGameObject(self.quest)
-
-

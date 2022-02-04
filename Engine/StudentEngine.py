@@ -135,9 +135,11 @@ class Engine:
             collider.onCollision(self, target)
 
     def setCamera(self, x, y):
-
         self.camera.x = x
         self.camera.y = y
+
+    def setZoom(self, zoom):
+        self.zoom_factor = zoom
 
     def addGameObject(self, gameObject):
         self.toCreateGamesObjects.append(gameObject)

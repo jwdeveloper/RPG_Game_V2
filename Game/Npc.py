@@ -60,10 +60,9 @@ class Npc(Entity):
         distance = self.location.distance(self.player.location)
 
         c = self.smoothAudio(distance)
-        self.currenctSound.volume = c
+        self.currenctSound.volume = 10
 
         if distance > 5 * 16:
-            self.currenctSound.stop()
             self.state = "walking"
             self.startTalking = False
             return

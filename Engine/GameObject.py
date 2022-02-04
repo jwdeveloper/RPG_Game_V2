@@ -8,9 +8,8 @@ class GameObject(pygame.sprite.Sprite):
         self.surf = None
         self.name = "GameObject"
         self.group = "default"
-
-        self.location = None
-        self.rect = None
+        self.rect = pygame.Rect((0, 0), (0, 0))
+        self.location = Location(self.rect)
         self.image = None
 
         self.isActive = True

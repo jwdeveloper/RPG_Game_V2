@@ -15,3 +15,4 @@ class Tile(GameObject):
         self.location.set(self.startX, self.startY)
 
 
+

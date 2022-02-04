@@ -7,6 +7,7 @@ class GameGroup(pygame.sprite.Group):
     renderIndex = 0
     disableRender = False
     gameObjects = []
+    renderDistance = 300
 
     def doTick(self, engine):
         toDestroy = []
@@ -33,7 +34,7 @@ class GameGroup(pygame.sprite.Group):
             if sprite.image is None:
                 continue
             distance = self.distance(sprite.location.X(), sprite.location.Y(), camera.x, camera.y)
-            if distance > 300:
+            if distance > self.renderDistance:
                 continue
 
             x = sprite.location.X() - camera.x + half_width - sprite.location.width() // 2
