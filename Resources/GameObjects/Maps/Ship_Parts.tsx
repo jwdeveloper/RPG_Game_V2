@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="29" columns="0">
+<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="37" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="16" height="16" source="../../Textures/Mapa/Grass.png"/>
@@ -87,5 +87,29 @@
  </tile>
  <tile id="31">
   <image width="16" height="16" source="../../../../../Downloads/Cannon_Back1.png"/>
+ </tile>
+ <tile id="32">
+  <image width="16" height="16" source="../../../../../Downloads/Hatch.png"/>
+ </tile>
+ <tile id="35">
+  <image width="16" height="16" source="../../../../../Downloads/Stairs2.png"/>
+ </tile>
+ <tile id="38">
+  <image width="16" height="16" source="../../../../../Downloads/Wheel1.png"/>
+ </tile>
+ <tile id="39">
+  <image width="16" height="16" source="../../../../../Downloads/Barrel.png"/>
+ </tile>
+ <tile id="40">
+  <image width="16" height="16" source="../../../../../Downloads/Anchor.png"/>
+ </tile>
+ <tile id="41">
+  <image width="16" height="16" source="../../../../../Downloads/Anchor_Wheel.png"/>
+ </tile>
+ <tile id="42">
+  <image width="16" height="16" source="../../../../../Downloads/Table_legs.png"/>
+ </tile>
+ <tile id="43">
+  <image width="16" height="16" source="../../../../../Downloads/Table.png"/>
  </tile>
 </tileset>
