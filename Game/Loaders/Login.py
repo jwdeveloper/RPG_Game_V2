@@ -95,5 +95,6 @@ class UserManager:
         if postac!=None:
             u.character=postac
             print("Wybrano postać: ",postac)
+            self.save()
         else:
             print("Wybierz dostępną postać")

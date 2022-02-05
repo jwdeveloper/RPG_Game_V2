@@ -26,6 +26,8 @@ class Player(Entity):
         self.controlEntity(engine.userInput)
         self.zoomControl(engine.userInput, engine)
         super().onTick(engine)
+        self.rozmawiaj(engine.userInput,engine)
+        self.uciekaj(engine.userInput,engine)
 
     def onCollision(self, engine, gameObject):
         engine.clearConsole()
@@ -56,3 +58,10 @@ class Player(Entity):
         if input[pygame.K_RIGHT]:
             self.turnRight()
             return self.location.add(1 * self.speed, 0)
+    def rozmawiaj(self,input,engine):
+        if input[pygame.K_e]:
+            self.sounds = engine.loadSound("Pirat\SzukaszProblemu.mp3")
+            self.sounds.play()
+    def uciekaj(self,input,engine):
+        if input[pygame.K_u]:
+            self.location.add(5,5)
