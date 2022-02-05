@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="37" columns="0">
+<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="38" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="16" height="16" source="../../Textures/Mapa/Grass.png"/>
@@ -111,5 +111,8 @@
  </tile>
  <tile id="43">
   <image width="16" height="16" source="../../../../../Downloads/Table.png"/>
+ </tile>
+ <tile id="44">
+  <image width="16" height="16" source="../../../../../Downloads/Sails.png"/>
  </tile>
 </tileset>
