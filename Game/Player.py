@@ -26,8 +26,6 @@ class Player(Entity):
         super().onTick(engine)
 
     def onCollision(self, engine, gameObject):
-        engine.clearConsole()
-        print(gameObject.name)
         super().onCollision(engine, gameObject)
 
     def zoomControl(self, input, engine):

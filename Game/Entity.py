@@ -27,11 +27,11 @@ class Entity(GameObject):
         self.image = self.right
 
     def onTick(self, engine):
-        engine.checkCollision(self, "Wall")
+        engine.checkCollision(self, "wall")
 
     def onCollision(self, engine, gameObject):
 
-        if gameObject.group == "Wall":
+        if gameObject.group == "wall":
             x = self.location.lastX
             y = self.location.lastY
             self.location.set(x, y)

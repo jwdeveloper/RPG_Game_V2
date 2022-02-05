@@ -6,8 +6,8 @@ class Camera(GameObject):
     target = None
     followSmooth = 0.3
     cameraZoom = 4
-    maxZoom = 300
-    minZoom = 100
+    maxZoom = 1100
+    minZoom = 200
     zoomSmooth = 0.1
 
     def onEnable(self, engine):
