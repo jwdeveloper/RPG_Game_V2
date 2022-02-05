@@ -11,7 +11,7 @@ class ShipLevel:
 
     def createOcean(self, engine):
         for y in range(-20, 40):
-            for x in range(-23, 23):
+            for x in range(-24, 44):
                 i = 0
                 engine.addGameObject(Water(x * 16, y * 16, "Water"))
 

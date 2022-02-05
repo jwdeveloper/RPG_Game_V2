@@ -48,16 +48,17 @@ class Player(Entity):
 
     def controlEntity(self, input,engine):
 
+
         if input[pygame.K_DOWN]:
-            return self.location.add(0, 1 * self.speed*engine.deltaTime)
+            return self.location.add(0, 1 * self.speed)
         if input[pygame.K_UP]:
-            return self.location.add(0, -1 * self.speed*engine.deltaTime)
+            return self.location.add(0, -1 * self.speed)
         if input[pygame.K_LEFT]:
             self.turnLeft()
-            return self.location.add(-1 * self.speed*engine.deltaTime, 0)
+            return self.location.add(-1 * self.speed, 0)
         if input[pygame.K_RIGHT]:
             self.turnRight()
-            return self.location.add(1 * self.speed*engine.deltaTime, 0)
+            return self.location.add(1 * self.speed, 0)
 
     def rozmawiaj(self, input, engine):
         if input[pygame.K_e]:
