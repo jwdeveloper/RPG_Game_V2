@@ -82,14 +82,14 @@ class UserManager:
         print("6. Lucznik")
         print("7. Złodziej")
         postacie=[]
-        postacie.append("Barbarzyńca")
+        postacie.append("Barbarian")
         postacie.append("Bard")
         postacie.append("Druid")
-        postacie.append("Mag")
-        postacie.append("Nekromanta")
+        postacie.append("Mage")
+        postacie.append("Necromancer")
         postacie.append("Paladyn")
-        postacie.append("Lucznik")
-        postacie.append("Złodziej")
+        postacie.append("Ranger")
+        postacie.append("Rogue")
         postac = int(input())
         postac = postacie[postac]
         if postac!=None:
