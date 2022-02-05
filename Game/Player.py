@@ -70,3 +70,7 @@ class Player(Entity):
     def atakuj(self,input,engine,npc):
         if input[pygame.K_q]:
             npc.destroy()
+    def przedstawSie(self,input,engine):
+        if input[pygame.K_r]:
+            self.sounds = engine.loadSound("Postac\\"+self.user.character+".mp3")
+            self.sounds.play()
