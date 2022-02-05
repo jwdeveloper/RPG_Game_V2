@@ -62,7 +62,7 @@ class Engine:
 
                 self.currentTick = pygame.time.get_ticks()
                 self.deltaTime = clock.tick(60) / 1000.0
-
+                print("deltaTime",self.deltaTime)
             except KeyboardInterrupt as manualGameClose:
                 break
             except Exception as error:

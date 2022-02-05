@@ -17,6 +17,8 @@ class GameGroup(pygame.sprite.Group):
             if sprite.shouldDestroy:
                 toDestroy.append(sprite)
                 continue
+            if sprite.isActive == False:
+                continue
 
             sprite.onTick(engine)
 
@@ -31,7 +33,7 @@ class GameGroup(pygame.sprite.Group):
         half_width = surface.get_size()[0] // 2
         half_height = surface.get_size()[1] // 2
         for sprite in self.gameObjects:
-            if sprite.image is None:
+            if sprite.image is None or sprite.isActive == False:
                 continue
             distance = self.distance(sprite.location.X(), sprite.location.Y(), camera.x, camera.y)
             if distance > self.renderDistance:

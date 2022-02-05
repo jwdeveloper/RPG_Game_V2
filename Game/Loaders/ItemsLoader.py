@@ -24,6 +24,7 @@ class ItemsLoader(Loader):
         self.copyAttributs(questTag, result)
         result["stats"] = self.getTagStats(content)
         result["name"] = self.getTagContent(content, "name")
-        result["textures"] = self.getTagGroup(content, "textures", self.TEXTURE)
         result["description"] = self.getTagContent(content, "description")
+        result["textures"] = self.getTagGroup(content, "textures", self.TEXTURE)
+        result["sounds"] = self.getTagGroup(content, "sounds", self.SOUND)
         return result
