@@ -17,7 +17,7 @@ class Player(Entity):
         self.group = "player"
         self.name = "player"
         self.stats["exp"] = 20
-        self.location.add(50, 30)
+        self.location.add(50, 50)
         self.camera = engine.findGameObject("camera")
         self.camera.setTarget(self)
 
@@ -30,8 +30,6 @@ class Player(Entity):
         self.uciekaj(engine.userInput,engine)
 
     def onCollision(self, engine, gameObject):
-        engine.clearConsole()
-        print(gameObject.name)
         super().onCollision(engine, gameObject)
         if gameObject.group=="Npc":
             self.atakuj(engine.userInput,engine,gameObject)
