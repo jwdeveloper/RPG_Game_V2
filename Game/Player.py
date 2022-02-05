@@ -33,6 +33,8 @@ class Player(Entity):
         engine.clearConsole()
         print(gameObject.name)
         super().onCollision(engine, gameObject)
+        if gameObject.group=="Npc":
+            self.atakuj(engine.userInput,engine,gameObject)
 
     def zoomControl(self, input, engine):
         if input[pygame.K_t]:
@@ -65,3 +67,6 @@ class Player(Entity):
     def uciekaj(self,input,engine):
         if input[pygame.K_u]:
             self.location.add(5,5)
+    def atakuj(self,input,engine,npc):
+        if input[pygame.K_q]:
+            npc.destroy()
