@@ -17,7 +17,7 @@ class Player(Entity):
         self.group = "player"
         self.name = "player"
         self.stats["exp"] = 20
-        self.location.add(50, 30)
+        self.location.add(50, 50)
         self.camera = engine.findGameObject("camera")
         self.camera.setTarget(self)
 
