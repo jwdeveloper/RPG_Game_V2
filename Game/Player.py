@@ -7,10 +7,12 @@ import pygame_gui
 
 
 class Player(Entity):
+    def setUser(self,user):
+        self.user=user
 
     def onEnable(self, engine):
         super().onEnable(engine)
-        self.setImage(engine.loadImage("Postacie\\Klasy\\Druid"))
+        self.setImage(engine.loadImage("Postacie\\Klasy\\"+self.user.character))
         self.ui = PlayerUI()
         self.group = "player"
         self.name = "player"
@@ -24,9 +26,13 @@ class Player(Entity):
         self.controlEntity(engine.userInput)
         self.zoomControl(engine.userInput, engine)
         super().onTick(engine)
+        self.rozmawiaj(engine.userInput,engine)
+        self.uciekaj(engine.userInput,engine)
 
     def onCollision(self, engine, gameObject):
         super().onCollision(engine, gameObject)
+        if gameObject.group=="Npc":
+            self.atakuj(engine.userInput,engine,gameObject)
 
     def zoomControl(self, input, engine):
         if input[pygame.K_t]:
@@ -52,3 +58,17 @@ class Player(Entity):
         if input[pygame.K_RIGHT]:
             self.turnRight()
             return self.location.add(1 * self.speed, 0)
+    def rozmawiaj(self,input,engine):
+        if input[pygame.K_e]:
+            self.sounds = engine.loadSound("Pirat\SzukaszProblemu.mp3")
+            self.sounds.play()
+    def uciekaj(self,input,engine):
+        if input[pygame.K_u]:
+            self.location.add(5,5)
+    def atakuj(self,input,engine,npc):
+        if input[pygame.K_q]:
+            npc.destroy()
+    def przedstawSie(self,input,engine):
+        if input[pygame.K_r]:
+            self.sounds = engine.loadSound("Postac\\"+self.user.character+".mp3")
+            self.sounds.play()
