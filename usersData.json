@@ -1,0 +1,17 @@
+[
+     {
+          "login": "Prado",
+          "password": "Has\u0142o",
+          "character": ""
+     },
+     {
+          "login": "Test",
+          "password": "Test",
+          "character": ""
+     },
+     {
+          "login": "test",
+          "password": "test",
+          "character": ""
+     }
+]

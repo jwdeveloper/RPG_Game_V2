@@ -12,6 +12,7 @@ from Game.Loaders.ItemsLoader import ItemsLoader
 from Game.UI.DialogUI import DialogUI
 from Game.Camera import Camera
 from Game.Pirates.Sapling import Sapling
+from Game.Loaders.Login import UserManager
 
 a = NPCLoader()
 b = a.load()
@@ -21,7 +22,9 @@ b = a.load()
 
 a = QuestLoader()
 b = a.load()
-
+manager=UserManager()
+manager.load()
+user=manager.login()
 engine = Engine()
 engine.setTitle("Super student RPG Game")
 engine.setCursorImage("UI\\cursor")
@@ -29,8 +32,9 @@ engine.setCursorImage("UI\\cursor")
 engine.addGameObject(Camera())
 level = ExampleLevel()
 level.create(engine)
-
-engine.addGameObject(Player())
+player=Player()
+player.setUser(user)
+engine.addGameObject(player)
 engine.addGameObject(Npc())
 engine.addGameObject(Pirate())
 engine.addGameObject(Sapling())

@@ -7,10 +7,12 @@ import pygame_gui
 
 
 class Player(Entity):
+    def setUser(self,user):
+        self.user=user
 
     def onEnable(self, engine):
         super().onEnable(engine)
-        self.setImage(engine.loadImage("Postacie\\Klasy\\Druid"))
+        self.setImage(engine.loadImage("Postacie\\Klasy\\"+self.user.character))
         self.ui = PlayerUI()
         self.group = "player"
         self.name = "player"
