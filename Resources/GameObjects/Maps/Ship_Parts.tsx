@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="25" columns="0">
+<tileset version="1.5" tiledversion="1.7.2" name="Ship_Parts" tilewidth="16" tileheight="16" tilecount="29" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="16" height="16" source="../../Textures/Mapa/Grass.png"/>
@@ -27,9 +27,6 @@
  </tile>
  <tile id="8">
   <image width="16" height="16" source="../../../../../Downloads/Wood_Barrier.png"/>
- </tile>
- <tile id="9">
-  <image source="../../../../../Downloads/Wood_Barrier_Top.png"/>
  </tile>
  <tile id="10">
   <image width="16" height="16" source="../../../../../Downloads/Barrier_Corner.png"/>
@@ -75,5 +72,20 @@
  </tile>
  <tile id="24">
   <image width="16" height="16" source="../../../../../Downloads/Barrier_Top_NoBG.png"/>
+ </tile>
+ <tile id="25">
+  <image width="16" height="16" source="../../../../../Downloads/Cannon_NoBG.png"/>
+ </tile>
+ <tile id="27">
+  <image width="16" height="16" source="../../../../../Downloads/Cannon_Armory.png"/>
+ </tile>
+ <tile id="28">
+  <image width="16" height="16" source="../../../../../Downloads/Cannon_Top.png"/>
+ </tile>
+ <tile id="30">
+  <image width="16" height="16" source="../../../../../Downloads/Cannon_Back.png"/>
+ </tile>
+ <tile id="31">
+  <image width="16" height="16" source="../../../../../Downloads/Cannon_Back1.png"/>
  </tile>
 </tileset>
