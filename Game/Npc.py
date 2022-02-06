@@ -18,7 +18,7 @@ class Npc(Entity):
     def onEnable(self, engine):
         super().onEnable(engine)
         self.group = "Npc"
-        self.setImage(engine.loadImage("Postacie\\Klasy\\Paladyn"))
+        self.setImage(engine.loadImage("Postacie\\Pirate\\Pirate"))
         self.orignalImg = self.image
         self.location.add(200, 100)
         self.player = engine.findGameObject("player")
