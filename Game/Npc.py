@@ -14,20 +14,24 @@ class Npc(Entity):
     rotated = False
     orignalImg = None
     player = None
+    angle = 0
+    startTalking = False
 
     def onEnable(self, engine):
         super().onEnable(engine)
-        self.group = "Npc"
+        self.group = "npc"
         self.setImage(engine.loadImage("Postacie\\Pirate\\Pirate"))
         self.orignalImg = self.image
         self.location.add(200, 100)
         self.player = engine.findGameObject("player")
         self.sounds = engine.loadSounds("Kapitan")
         self.currenctSound = None
+        self.quest = None
+        self.engine = engine
 
     def onTick(self, engine):
         super().onTick(engine)
-        engine.checkCollision(self, "player")
+
         if self.state == "walking":
             self.walking(engine)
         if self.state == "talking":
@@ -37,18 +41,18 @@ class Npc(Entity):
         super().onCollision(engine, gameObject)
         if gameObject.group == "player":
             self.state = "talking"
-
         else:
             self.state = "walking"
 
-    angle = 0
-    startTalking = False
+    def setQuest(self, quest):
+        self.quest = quest
+        self.engine.addGameObject(quest)
 
     def talking(self, engine):
         if self.startTalking == False:
             index = random.randint(0, len(self.sounds) - 1)
             self.currenctSound = self.sounds[index]
-            self.currenctSound.play()
+            self.playSound(self.currenctSound)
             self.startTalking = True
 
         self.angle += 10
@@ -59,8 +63,7 @@ class Npc(Entity):
         self.image = pygame.transform.scale(self.orignalImg, (16, 16 + v))
         distance = self.location.distance(self.player.location)
 
-        c = self.smoothAudio(distance)
-        self.currenctSound.volume = 10
+        self.currenctSound.volume = self.smoothAudio(distance)
 
         if distance > 5 * 16:
             self.state = "walking"
@@ -87,3 +90,11 @@ class Npc(Entity):
                 self.turnLeft()
 
         self.location.add(self.speed * self.directionX, self.speed * self.directionY)
+
+    def checkQuest(self):
+        if self.quest is None or self.quest.isCompleted:
+            return
+        if self.quest.isStarted is False:
+            self.quest.begin()
+        else:
+            self.quest.check()

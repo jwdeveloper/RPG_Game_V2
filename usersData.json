@@ -1,17 +1,12 @@
 [
      {
-          "login": "ajcek",
-          "password": "jacek",
-          "character": "Druid"
+          "login": "a",
+          "password": "a",
+          "character": "Bard"
      },
      {
-          "login": "dupa",
-          "password": "dupa",
-          "character": "Druid"
-     },
-     {
-          "login": "jacek",
-          "password": "jacek",
-          "character": "Druid"
+          "login": "1",
+          "password": "1",
+          "character": "Bard"
      }
 ]

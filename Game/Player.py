@@ -22,59 +22,32 @@ class Player(Entity):
         self.camera.setTarget(self)
 
     def onTick(self, engine):
-
-        self.controlEntity(engine.userInput,engine)
-        self.zoomControl(engine.userInput, engine)
+        engine.checkCollision(self, "npc")
+        self.controlEntity(engine.userInput, engine)
         super().onTick(engine)
-        self.rozmawiaj(engine.userInput, engine)
-        self.uciekaj(engine.userInput, engine)
 
     def onCollision(self, engine, gameObject):
         super().onCollision(engine, gameObject)
-        if gameObject.group == "Npc":
-            self.atakuj(engine.userInput, engine, gameObject)
+        if gameObject.group == "npc":
+            self.npcInteract(engine, gameObject)
 
-    def zoomControl(self, input, engine):
-        if input[pygame.K_t]:
-            self.current_health += 1
-        if input[pygame.K_w]:
+    def controlEntity(self, input, engine):
+
+        if input[pygame.K_q]:
             engine.setZoom(engine.zoom_factor + 100)
-        if input[pygame.K_e]:
-            self.rotate += 1
-            pygame.transform.rotate(engine.display, - self.rotate)
-        if input[pygame.K_r]:
-            self.rotate -= 1
-            pygame.transform.rotate(engine.display, - self.rotate)
 
-    def controlEntity(self, input,engine):
-
-
-        if input[pygame.K_DOWN]:
+        if input[pygame.K_s]:
             return self.location.add(0, 1 * self.speed)
-        if input[pygame.K_UP]:
+        if input[pygame.K_w]:
             return self.location.add(0, -1 * self.speed)
-        if input[pygame.K_LEFT]:
+        if input[pygame.K_a]:
             self.turnLeft()
             return self.location.add(-1 * self.speed, 0)
-        if input[pygame.K_RIGHT]:
+        if input[pygame.K_d]:
             self.turnRight()
             return self.location.add(1 * self.speed, 0)
 
-    def rozmawiaj(self, input, engine):
-        if input[pygame.K_e]:
-            self.sounds = engine.loadSound("Pirat\SzukaszProblemu.mp3")
-            self.sounds.play()
+    def npcInteract(self, engine, npc):
 
-    def uciekaj(self, input, engine):
-        if input[pygame.K_y]:
-            dir = self.location.direction()
-            self.location.add(3*dir[0], 3*dir[1])
-
-    def atakuj(self, input, engine, npc):
-        if input[pygame.K_q]:
-            npc.destroy()
-
-    def przedstawSie(self, input, engine):
-        if input[pygame.K_r]:
-            self.sounds = engine.loadSound("Postac\\" + self.user.character + ".mp3")
-            self.sounds.play()
+        if engine.isKeyUp(pygame.K_e):
+            npc.checkQuest()

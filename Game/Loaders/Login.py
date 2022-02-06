@@ -10,6 +10,7 @@ class User(object):
         self.password = ""
         self.character = ""
 
+
 class UserManager:
     users = []
     fileName = "usersData.json"
@@ -49,29 +50,31 @@ class UserManager:
                 self.users = []
 
     def save(self):
-        usersJson = json.dumps(self.users, indent=5,default=lambda o: o.__dict__)
+        usersJson = json.dumps(self.users, indent=5, default=lambda o: o.__dict__)
         with open(self.fileName, "a+") as outfile:
             outfile.seek(0)
             outfile.truncate()
             outfile.write(usersJson)
+
     def login(self):
         print("Witaj w grze, wpisz swoje dane logowania lub załóż nowe konto")
         l = input("Login: ")
-        p = input("Password: ")
+        p = input("Haslo: ")
         u = self.findUser(l)
         if u == None:
-            user=self.addUser(l,p)
+            user = self.addUser(l, p)
             print("Założono nowego użytkownika")
             self.pickcharacter(user)
             return user
         else:
-            if u.password==p:
+            if u.password == p:
                 print("Zalogowano pomyślnie")
                 return u
             else:
                 print("Niepoprawne hasło lub nazwa użytkownika")
                 self.login()
-    def pickcharacter(self,u):
+
+    def pickcharacter(self, u):
         print("Wybierz postać:")
         print("0. Barbarzyńca")
         print("1. Bard")
@@ -81,7 +84,7 @@ class UserManager:
         print("5. Paladyn")
         print("6. Lucznik")
         print("7. Złodziej")
-        postacie=[]
+        postacie = []
         postacie.append("Barbarian")
         postacie.append("Bard")
         postacie.append("Druid")
@@ -92,9 +95,10 @@ class UserManager:
         postacie.append("Rogue")
         postac = int(input())
         postac = postacie[postac]
-        if postac!=None:
-            u.character=postac
-            print("Wybrano postać: ",postac)
+        if postac != None:
+            u.character = postac
+            print("Wybrano postać: ", postac)
             self.save()
         else:
-            print("Wybierz dostępną postać")
+            print("Nie znaleziono postaci ",postac)
+            self.pickcharacter(u)

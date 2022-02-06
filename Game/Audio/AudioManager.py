@@ -12,10 +12,10 @@ class AudioManager(GameObject):
         self.location = Location(self.rect)
         self.backGroundTrack = engine.loadSound("Music\Background.mp3")
         self.backGroundTrack.volume = 10
-        self.backGroundTrack.play()
+        self.backGroundTrack.play(loop=True)
 
         self.backGroundMusic = engine.loadSound("Music\Instumental.mp3")
         self.backGroundMusic.volume = 5
-        self.backGroundMusic.play()
+        self.backGroundMusic.play(loop=True)
 
 

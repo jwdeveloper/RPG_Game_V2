@@ -62,7 +62,6 @@ class Engine:
 
                 self.currentTick = pygame.time.get_ticks()
                 self.deltaTime = clock.tick(60) / 1000.0
-                print("deltaTime",self.deltaTime)
             except KeyboardInterrupt as manualGameClose:
                 break
             except Exception as error:
@@ -97,7 +96,7 @@ class Engine:
         self.GUI_MANAGER.draw_ui(screen)
 
         if self.CURSOR != None:
-            screen.blit(pygame.transform.scale(self.CURSOR, (33,33)),  (pygame.mouse.get_pos()))
+            screen.blit(pygame.transform.scale(self.CURSOR, (33, 33)), (pygame.mouse.get_pos()))
 
         pygame.display.update()
 
@@ -148,7 +147,7 @@ class Engine:
         pygame.mixer.music.load(path)
         pygame.mixer.music.play(-1, 0.0)
 
-    def mouseLocation(self):
+    def getMouseLocation(self):
         return pygame.mouse.get_pos()
 
     def setZoom(self, zoom):
@@ -196,10 +195,17 @@ class Engine:
             result.append(image)
         return result
 
+    def isKeyUp(self, key):
+        for ev in self.gameEvents:
+            if ev.type == pygame.KEYUP:
+                if ev.key == key:
+                    return True
+        return False
+
     def setTitle(self, title):
         pygame.display.set_caption(title)
 
-    def setCursorImage(self,path):
+    def setCursorImage(self, path):
         self.CURSOR = self.loadImage(path)
 
     def getScreenSize(self):
